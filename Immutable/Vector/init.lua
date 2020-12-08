@@ -17,25 +17,27 @@ function Vector.new(luaTable)
     return self
 end
 
+---Generate new vector from args
 function Vector:of(...)
     local args = {...}
     return self.new(args)
 end
 
 
----Insert value at index in the Vector
----O(log10 n)
-function Vector:set(index, value)
+
+---Insert value at index in the Vector.
+---O(log10(n))
+function Vector:set(index: number, value: any)
     self._root = Trie.setNode(self._root, index, value)
     return self
 end
 
 
-function Vector:get(index)
+---Get value at index in the Vector.
+---O(log10(n))
+function Vector:get(index: number)
     return Trie.getNode(self._root, index)
 end
-
-
 
 
 setmetatable(Vector, {

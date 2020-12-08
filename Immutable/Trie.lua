@@ -20,18 +20,17 @@ Trie.newNode = function() : Node
 end
 
 
-local function shallowNodeCopy(node : Node) : Node
+local function shallowNodeCopy(node : Node)
     local copiedNodes = {}
 
     for key, value in pairs(node.nodes) do
         copiedNodes[key] = value
     end
 
-    local newNode : Node = {
+    return {
         nodes = copiedNodes,
-        value = node.value, --unsure about this
+        value = node.value,
     }
-    return newNode
 end
 
 
@@ -39,9 +38,9 @@ end
 ---persistent with the previous trie, shares node references
 ---when possible.
 function Trie.setNode(root: Node, index: number, value)
-    local newRoot : Node = shallowNodeCopy(root)
+    local newRoot = shallowNodeCopy(root)
 
-    local head : Node = root
+    local head  = root
     local newHead = newRoot
 
     local iterableBase10 = tostring(index):gmatch(".")
@@ -70,14 +69,16 @@ function Trie.setNode(root: Node, index: number, value)
     return newRoot
 end
 
+
 ---Get node value at index from the trie at root
 function Trie.getNode(root: Node, index: number)
+
     --Converts index into an iterable string
     local iterableBase10 = tostring(index):gmatch(".")
-    local head : Node = root
+    local head = root
 
     for digit in iterableBase10 do
-        digit = tonumber(digit) --unsure if this is beneficial yet
+        digit = tonumber(digit)
 
         local node = head.nodes[digit]
 
@@ -87,10 +88,11 @@ function Trie.getNode(root: Node, index: number)
             warn("Node at index ".. index .. " does not exist")
             return nil
         end
-         
     end
+
     return head.value
 end
+
 
 ---Generate a persistent trie from a table.
 function Trie.buildTree(luaTable)
@@ -103,9 +105,9 @@ function Trie.buildTree(luaTable)
         local iterableBase10 = tostring(index):gmatch(".")
 
         --Traverse down trie along iterable with head
-        --Trie not in use yet, so don't need immutability
+        --Trie not in use yet, so doesn't need immutability
         for digit in iterableBase10 do
-            digit = tonumber(digit)
+            digit = tonumber(digit) --unsure if this is beneficial yet
 
             local node = head.nodes[digit]
             if node then
