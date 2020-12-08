@@ -1,0 +1,13 @@
+{
+  "name": "ImmutableLua",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "Immutable" : {
+        "$path": "./Immutable"
+      }
+    }
+  }
+}
