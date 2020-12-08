@@ -6,7 +6,6 @@ local Trie = require(script.Parent.Trie)
 local Vector = {}
 Vector.__index = Vector
 
-
 function Vector.new(luaTable)
     local self = {}
 
@@ -17,12 +16,11 @@ function Vector.new(luaTable)
     return self
 end
 
+
 ---Generate new vector from args
 function Vector:of(...)
-    local args = {...}
-    return self.new(args)
+    return self.new({...})
 end
-
 
 
 ---Insert value at index in the Vector.
@@ -41,7 +39,6 @@ end
 
 
 setmetatable(Vector, {
-
     __call = function(_, luaTable)
         return Vector.new(luaTable)
     end,
